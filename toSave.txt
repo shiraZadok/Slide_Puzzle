@@ -1,0 +1,56 @@
+    ///////////////////////////////////////////////////////////////////
+//    public void init(BufferedReader input) throws IOException {
+//        this.setAlgorithm(input.readLine());
+//        System.out.println(this.getAlgorithm());
+//
+//        this.setTimeS(input.readLine());
+//        System.out.println(this.getTime());
+//
+//        this.setOpenListS(input.readLine());
+//        System.out.println(this.getOpenList());
+//
+//        this.setSizeBoardS(input.readLine());
+//        System.out.println(this.sizeBoard);
+//
+//        this.setBlackS(input.readLine());
+//        System.out.println(this.Black);
+//
+//        this.setRedS(input.readLine());
+//        System.out.println(this.Red);
+//
+//        String line;
+//        while ((line = input.readLine()) != null){
+//            this.setBoardStartPositionS(line);
+//        }
+//    }
+    /////////////////////////////////////////////////////////////
+
+     /**
+         * Check if the number of inversions is even for the puzzle to be solvable
+         * In addition,check that all black square in the right location, if exist
+         * @return true if the board is Solvable, else false
+         */
+        public boolean isSolvable() {
+            int[] oneDMatrix = new int[this.row*this.column];
+            int indexArray=0;
+            for (int i = 0; i<this.row; i++) {
+                for (int j = 0; j < this.column; j++)
+                    oneDMatrix[indexArray++] = this.board[i][j].getNum();
+            }
+            for (int n: oneDMatrix) System.out.print(" "+n);
+            System.out.println();
+            System.out.println(this.sizeOfBoard);
+            int countInversions = 0;
+            for (int i = 0; i < this.sizeOfBoard; i++) {
+                for (int j = 0; j < i; j++) {
+                    if(oneDMatrix[i]!=0) {
+                        if(this.Black.contains(oneDMatrix[i])&&(i+1)!= oneDMatrix[i])
+                            return false;
+                        if (oneDMatrix[j] > oneDMatrix[i])
+                            countInversions++;
+                    }
+                }
+            }
+            System.out.println("switch: "+countInversions);
+            return countInversions % 2 == 0;
+        }
